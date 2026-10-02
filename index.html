@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Catálogo de camisas de time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--card:#151515;--ink:#f4f1e8;--mute:#a59f8e;--line:#2c2a22;--acc:#e0a82e;--accInk:#111;--sold:#e2685c;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg) repeating-linear-gradient(135deg,transparent 0 46px,rgba(224,168,46,.06) 46px 48px) fixed;color:var(--ink);font:16px/1.4 Barlow,system-ui,sans-serif}
+header{padding:28px 18px 12px;max-width:1000px;margin:0 auto}
+h1{font:700 38px/1 "Barlow Condensed",Impact,sans-serif;margin:0 0 6px}
+header p{margin:0;color:var(--mute)}
+.tools{max-width:1000px;margin:0 auto;padding:8px 18px 4px;display:flex;flex-direction:column;gap:10px}
+input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit}
+input:focus-visible,button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.chips button{flex:none;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font:500 15px Barlow,sans-serif;cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--acc);color:var(--accInk);border-color:var(--acc)}
+main{max-width:1000px;margin:0 auto;padding:12px 18px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative}
+.pic{display:grid;place-items:center;padding:18px 0 6px;background:var(--bg)}
+.pic img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.pic:has(img){padding:0}
+.pic svg{width:70%;max-width:150px;height:auto}
+.body{padding:12px 14px 16px}
+.name{font:700 22px/1.1 "Barlow Condensed",Impact,sans-serif;margin:0}
+.meta{color:var(--mute);font-size:14px;margin:2px 0 10px}
+.price{font-weight:600;margin:0 0 10px}
+.sizes{display:flex;gap:6px;flex-wrap:wrap}
+.sizes span{min-width:34px;text-align:center;padding:4px 8px;border-radius:6px;font-weight:600;font-size:14px;border:1.5px solid var(--acc)}
+.sizes span small{display:block;font-size:11px;font-weight:400;color:var(--mute);line-height:1.2}
+.sizes span.off{border-color:var(--line);color:var(--mute);text-decoration:line-through;font-weight:400}
+.item.sold .pic,.item.sold .body{opacity:.45}
+.tag{position:absolute;top:10px;left:10px;background:var(--acc);color:#111;font:700 15px "Barlow Condensed",sans-serif;padding:3px 10px;border-radius:6px;z-index:1}
+.wa{display:block;margin-top:14px;padding:11px 12px;border-radius:10px;background:#128c4a;color:#fff;text-align:center;font-weight:600;text-decoration:none}
+.wa:hover{background:#0f7a41}
+.wa:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+header.brand{padding:10px 18px 6px;text-align:center}
+.logo{display:block;width:100%;max-width:520px;height:auto;margin:0 auto;-webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 60%,transparent 100%)}
+.perks{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;margin:2px 0 10px;color:var(--acc);font:600 13px/1.2 Barlow,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.how{margin:0;color:var(--mute)}
+.item{border-color:#3a3320}
+.name{color:var(--ink)}
+.share{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.share button{padding:11px 18px;border-radius:999px;border:1.5px solid var(--acc);background:var(--acc);color:var(--accInk);font:600 15px Barlow,sans-serif;cursor:pointer}
+.share button.alt{background:transparent;color:var(--acc)}
+.share button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.msg{min-height:20px;margin:8px 0 0;color:var(--acc);font-size:14px}
+@media print{body{background:#fff!important;color:#000}.share,.msg,.tools,.wa{display:none!important}header.brand{background:#0a0a0a;-webkit-print-color-adjust:exact;print-color-adjust:exact}.item{break-inside:avoid;background:#fff;border-color:#ccc}.name,.price{color:#000}.meta,.sizes span small{color:#333}.sizes span{color:#000;border-color:#000}.item.sold .pic,.item.sold .body{opacity:.5}}
+.info{margin:0 auto 16px;padding:0 8px;text-align:center}
+.linha{display:flex;align-items:center;justify-content:center;gap:12px;max-width:440px;margin:0 auto 6px;color:var(--acc);font:700 clamp(14px,4.2vw,17px)/1.2 "Barlow Condensed",Impact,sans-serif;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}
+.linha::before,.linha::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--acc))}
+.linha::after{background:linear-gradient(270deg,transparent,var(--acc))}
+.enc{margin:0;color:var(--mute);font:500 14px/1.5 Barlow,sans-serif;letter-spacing:.02em}
+.enc span{white-space:nowrap}
+.enc .dot{margin:0 8px;color:var(--acc)}
+.empty{grid-column:1/-1;text-align:center;color:var(--mute);padding:40px 0}
+main{padding-bottom:96px}
+.sizes .sz{min-width:34px;text-align:center;padding:4px 8px;border-radius:6px;font:600 14px Barlow,sans-serif;border:1.5px solid var(--acc);background:transparent;color:var(--ink);cursor:pointer}
+.sizes .sz.on{background:var(--acc);color:var(--accInk)}
+.sizes .sz small{display:block;font-size:11px;font-weight:400;line-height:1.2;color:inherit;opacity:.8}
+.sizes span.off{display:inline-block}
+.sizes.shake{animation:sk .4s}
+@keyframes sk{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.add,.btn{display:block;width:100%;margin-top:12px;padding:12px;border:0;border-radius:10px;background:var(--acc);color:var(--accInk);font:700 15px Barlow,sans-serif;cursor:pointer}
+.btn.alt{background:transparent;color:var(--acc);border:1.5px solid var(--acc)}
+.add:focus-visible,.btn:focus-visible,.sz:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.cb{position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:20;display:flex;justify-content:space-between;align-items:center;max-width:520px;margin:0 auto;padding:14px 18px;border:0;border-radius:14px;background:var(--acc);color:var(--accInk);font:700 16px Barlow,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.55);cursor:pointer}
+.cb[hidden],.md[hidden],#fm[hidden],#ad[hidden],#pixbox[hidden]{display:none}
+.md{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.72);display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:560px;max-height:92vh;overflow:auto;background:#121212;border:1px solid var(--line);border-radius:18px 18px 0 0;padding:16px 16px calc(24px + env(safe-area-inset-bottom))}
+.sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.sh h2{margin:0;font:700 26px "Barlow Condensed",Impact,sans-serif;color:var(--acc)}
+.xb{border:1px solid var(--line);background:transparent;color:var(--ink);padding:8px 14px;border-radius:999px;font:600 14px Barlow,sans-serif;cursor:pointer}
+.mut{color:var(--mute);font-size:14px;margin:6px 0}
+.ln{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.li{flex:1;min-width:0}.li b{display:block;font-size:15px}.li span{color:var(--mute);font-size:13px}
+.qt{display:flex;align-items:center;gap:8px}
+.qt button,.rm{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);font:700 16px Barlow,sans-serif;cursor:pointer;padding:0}
+.rm{border:0;color:var(--mute);font-size:22px}
+.op{display:grid;gap:8px;margin:14px 0 4px}
+.op label{display:block;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer}
+.op label:has(input:checked){border-color:var(--acc)}
+.op input{width:auto;margin-right:8px;accent-color:#e0a82e}
+.op small{display:block;color:var(--mute);margin-left:24px}
+.f label{display:block;font-size:13px;color:var(--mute);margin:10px 0 4px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.res{margin:16px 0 6px;padding:12px;border:1px solid var(--line);border-radius:10px}
+.res>div{display:flex;justify-content:space-between;padding:3px 0;font-size:15px}
+.res .tot{font:700 20px Barlow,sans-serif;color:var(--acc);border-top:1px solid var(--line);margin-top:6px;padding-top:8px}
+.err{color:#ff8a7a;min-height:20px;margin:6px 0 0;font-size:14px}
+.pixb{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);text-align:center}
+.pixb h3{margin:0 0 4px;font:700 24px "Barlow Condensed",Impact,sans-serif;color:var(--acc)}
+.qr{display:inline-block;background:#fff;padding:10px;border-radius:10px;margin:10px 0}
+.qr:empty{display:none}
+#pc{width:100%;margin:6px 0;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:12px/1.3 monospace;resize:none}
+.ts{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translate(-50%,-90px);z-index:40;background:#f4f1e8;color:#111;padding:10px 18px;border-radius:999px;font:600 14px Barlow,sans-serif;box-shadow:0 4px 18px rgba(0,0,0,.5);transition:transform .25s;max-width:92vw;text-align:center}
+.ts.on{transform:translate(-50%,0)}
+body.lock{overflow:hidden}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<header class="brand">
+  <h1 class="sr">Raphael Imports, camisas de time</h1>
+  <img class="logo" src="fotos/logo.jpg" alt="Raphael Imports, camisas de time é aqui">
+  <section class="info" aria-label="Informações de encomenda">
+    <p class="linha">Camisas tailandesas 1.1</p>
+    <p class="enc"><span>Faça sua encomenda</span><span class="dot" aria-hidden="true">•</span><span>Prazo de 25 a 30 dias</span></p>
+  </section>
+  <div class="share"><button id="pdf" type="button">Baixar catálogo em PDF</button><button id="cp" type="button" class="alt">Copiar link</button></div>
+  <p id="msg" class="msg" role="status" aria-live="polite"></p>
+</header>
+<div class="tools">
+  <input id="q" type="search" placeholder="Buscar time ou modelo" aria-label="Buscar">
+  <div class="chips" id="chips"></div>
+</div>
+<main id="grid"></main>
+<button id="cb" class="cb" type="button" hidden></button>
+<div id="ts" class="ts" role="status" aria-live="polite"></div>
+<div id="md" class="md" hidden>
+ <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mt">
+  <div class="sh"><h2 id="mt">Seu pedido</h2><button id="fx" class="xb" type="button">Fechar</button></div>
+  <div id="itens"></div>
+  <form id="fm" novalidate>
+   <div class="op">
+    <label><input type="radio" name="ent" value="entrega" checked> Entrega <b>R$ 15,00</b></label>
+    <label><input type="radio" name="ent" value="retirada"> Retirada <b>Grátis</b><small>Combinamos a retirada pelo WhatsApp</small></label>
+   </div>
+   <div class="f">
+    <label for="n">Nome completo</label><input id="n" autocomplete="name">
+    <label for="w">WhatsApp com DDD</label><input id="w" inputmode="tel" autocomplete="tel" placeholder="(21) 90000-0000">
+   </div>
+   <div id="ad" class="f">
+    <label for="cep">CEP</label><input id="cep" inputmode="numeric" maxlength="9" autocomplete="postal-code">
+    <label for="rua">Rua</label><input id="rua" autocomplete="address-line1">
+    <div class="duo"><div><label for="num">Número</label><input id="num"></div><div><label for="comp">Complemento</label><input id="comp"></div></div>
+    <label for="bai">Bairro</label><input id="bai">
+    <div class="duo"><div><label for="cid">Cidade</label><input id="cid"></div><div><label for="uf">UF</label><input id="uf" maxlength="2"></div></div>
+   </div>
+   <div id="res" class="res"></div>
+   <p id="err" class="err" role="alert"></p>
+   <button type="submit" class="btn">Gerar Pix</button>
+  </form>
+  <div id="pixbox" class="pixb" hidden>
+   <h3>Pague com Pix</h3>
+   <p class="mut">Valor: <b id="pv"></b> | Para: Raphael Imports</p>
+   <div id="qr" class="qr"></div>
+   <textarea id="pc" readonly rows="4" aria-label="Código Pix copia e cola"></textarea>
+   <button id="cpx" class="btn alt" type="button">Copiar código Pix</button>
+   <p class="mut">1. Pague no app do seu banco, pelo Pix (QR Code ou copia e cola).<br>2. Depois toque no botão abaixo e envie o comprovante.</p>
+   <button id="ez" class="btn" type="button">Já paguei: enviar pedido no WhatsApp</button>
+  </div>
+ </div>
+</div>
+<script>
+var CFG={pix:"b0fb5d85-0b37-499f-bca9-1ad70301331b",nome:"Raphael Imports",cidade:"Rio de Janeiro",zap:"5521997762912",frete:15,csv:"https://docs.google.com/spreadsheets/d/e/2PACX-1vQq6Ad-OGg-n5G5E79MhmlUoU3sYXS33T8j3xOAv3qx8-uhb6rPgepJfmNU8uPkKQMS8J3ZLWIUXlwh/pub?gid=0&single=true&output=csv"};
+var FALLBACK=[["foto", "nome", "tipo", "preco", "tamanhos"], ["barcelona-camisa-azul-e-grena-masculina.jpg", "Barcelona, camisa azul e grená masculina", "Adulto", "", ""], ["flamengo-camisa-amarela-masculina.jpg", "Flamengo, camisa amarela masculina", "Adulto", "R$ 120,00", "M"], ["flamengo-camisa-branca-masculina.jpg", "Flamengo, camisa branca masculina", "Adulto", "R$ 120,00", "M"], ["fluminense-camisa-tricolor-feminina.jpg", "Fluminense, camisa tricolor feminina", "Adulto", "R$ 120,00", "M, G, GG"], ["flamengo-camisa-preta-masculina.jpg", "Flamengo, camisa preta masculina", "Adulto", "R$ 120,00", "G"], ["real-madrid-camisa-verde-masculina.jpg", "Real Madrid, camisa verde masculina", "Adulto", "", ""], ["argentina-camisa-manga-longa-masculina.jpg", "Argentina, camisa manga longa masculina", "Adulto", "R$ 140,00", "G"], ["flamengo-camisa-rubro-negra-feminina.jpg", "Flamengo, camisa rubro-negra feminina", "Adulto", "R$ 120,00", "M"], ["alemanha-camisa-azul-masculina.jpg", "Alemanha, camisa azul masculina", "Adulto", "R$ 120,00", "GG"], ["brasil-camisa-azul-masculina.jpg", "Brasil, camisa azul masculina", "Adulto", "R$ 120,00", "G, GG"], ["flamengo-camisa-rubro-negra-masculina.jpg", "Flamengo, camisa rubro-negra masculina", "Adulto", "", ""], ["botafogo-camisa-branca-masculina.jpg", "Botafogo, camisa branca masculina", "Adulto", "", ""], ["fluminense-camisa-verde-masculina.jpg", "Fluminense, camisa verde masculina", "Adulto", "", ""], ["vasco-camisa-preta-masculina.jpg", "Vasco, camisa preta masculina", "Adulto", "R$ 120,00", "G"], ["fluminense-camisa-tricolor-masculina.jpg", "Fluminense, camisa tricolor masculina", "Adulto", "", ""], ["botafogo-camisa-preta-masculina.jpg", "Botafogo, camisa preta masculina", "Adulto", "", ""], ["flamengo-camisa-vermelha-masculina.jpg", "Flamengo, camisa vermelha masculina", "Adulto", "", ""], ["flamengo-camisa-vermelha-feminina.jpg", "Flamengo, camisa vermelha feminina", "Adulto", "", ""], ["botafogo-camisa-e-short-infantil.jpg", "Botafogo, camisa e short infantil", "Infantil", "R$ 150,00", "22, 24, 26, 28"], ["flamengo-camisa-e-short-infantil.jpg", "Flamengo, camisa e short infantil", "Infantil", "R$ 150,00", "22, 24, 26, 28"], ["vasco-camisa-e-short-infantil.jpg", "Vasco, camisa e short infantil", "Infantil", "R$ 150,00", "22, 24, 26, 28"], ["fluminense-camisa-e-short-infantil.jpg", "Fluminense, camisa e short infantil", "Infantil", "R$ 150,00", "22, 24, 26, 28"]];
+var KIDS=[["22","6 e 7 anos"],["24","8 e 9 anos"],["26","10 e 11 anos"],["28","12 e 13 anos"]];
+var TODOS=["P","M","G","GG","2GG","3GG","4GG"];
+var CAMISAS=[],tipo="Todas",busca="",cart=[],pedido="";
+function $(i){return document.getElementById(i)}
+function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function brl(n){return "R$ "+n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function num(t){t=String(t||"").replace(/[^\d,.]/g,"");if(!t)return 0;if(t.indexOf(",")>-1)t=t.replace(/\./g,"").replace(",",".");return parseFloat(t)||0}
+var tt=0;
+function toast(m){var e=$("ts");e.textContent=m;e.className="ts on";clearTimeout(tt);tt=setTimeout(function(){e.className="ts"},2800)}
+var aviso=toast;
+function velho(t,ok){try{var a=document.createElement("textarea");a.value=t;a.style.cssText="position:fixed;opacity:0";document.body.appendChild(a);a.select();var s=document.execCommand("copy");a.remove();toast(s?ok:"Não deu para copiar.")}catch(e){toast("Não deu para copiar.")}}
+function copia(t,ok){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast(ok)},function(){velho(t,ok)})}else velho(t,ok)}
+
+/* ---------- dados (planilha CSV ou lista embutida) ---------- */
+function csv(t){var r=[],row=[],f="",q=0,i,c;for(i=0;i<t.length;i++){c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=0}else f+=c}else if(c=='"')q=1;else if(c==","){row.push(f);f=""}else if(c=="\n"||c=="\r"){if(c=="\r"&&t[i+1]=="\n")i++;row.push(f);r.push(row);row=[];f=""}else f+=c}if(f!==""||row.length){row.push(f);r.push(row)}return r}
+function fromRows(rows){
+ var h=rows[0].map(function(x){return x.trim().toLowerCase()});
+ function ix(n){return h.indexOf(n)}
+ return rows.slice(1).filter(function(r){return (r[ix("nome")]||"").trim()}).map(function(r,i){
+  function g(n){return (r[ix(n)]||"").trim()}
+  var p=num(g("preco"));
+  return{id:i,foto:g("foto"),nome:g("nome"),tipo:g("tipo")||"Adulto",pnum:p,preco:p?brl(p):"",tamanhos:g("tamanhos").split(",").map(function(s){return s.trim().toUpperCase()}).filter(Boolean)};
+ });
+}
+async function carregar(){
+ var rows=FALLBACK;
+ if(CFG.csv){try{var r=await fetch(CFG.csv+(CFG.csv.indexOf("?")>-1?"&":"?")+"t="+Date.now());if(r.ok){var x=csv(await r.text());if(x.length>1)rows=x}}catch(e){}}
+ CAMISAS=fromRows(rows);chips();render();
+}
+function ordena(a,b){
+ var d=(a.tamanhos.length===0)-(b.tamanhos.length===0);if(d)return d;
+ d=a.nome.split(",")[0].localeCompare(b.nome.split(",")[0],"pt-BR");if(d)return d;
+ d=(a.tipo||"").localeCompare(b.tipo||"","pt-BR");if(d)return d;
+ return a.nome.localeCompare(b.nome,"pt-BR");
+}
+
+/* ---------- catálogo ---------- */
+function chips(){
+ var t=["Todas"];CAMISAS.forEach(function(x){if(x.tipo&&t.indexOf(x.tipo)<0)t.push(x.tipo)});
+ var c=$("chips");c.innerHTML="";if(t.length<2)return;
+ t.forEach(function(n){var b=document.createElement("button");b.textContent=n;b.setAttribute("aria-pressed",n===tipo);b.onclick=function(){tipo=n;chips();render()};c.appendChild(b)});
+}
+function render(){
+ var lista=CAMISAS.filter(function(x){return(tipo==="Todas"||x.tipo===tipo)&&(x.nome+" "+x.tipo).toLowerCase().indexOf(busca)>-1});
+ lista.sort(ordena);
+ var h="";
+ lista.forEach(function(x){
+  var vend=!x.tamanhos.length,grade=x.tipo==="Infantil"?KIDS:TODOS.map(function(s){return[s,""]});
+  var sz=grade.map(function(g){
+   var lb=g[1]?"<small>"+g[1]+"</small>":"";
+   return x.tamanhos.indexOf(g[0])>-1?'<button type="button" class="sz" data-s="'+g[0]+'">'+g[0]+lb+'</button>':'<span class="off">'+g[0]+lb+'</span>';
+  }).join("");
+  var acao=vend?"":(x.pnum?'<button type="button" class="add">Adicionar ao carrinho</button>':'<a class="wa" target="_blank" rel="noopener" href="https://wa.me/'+CFG.zap+'?text='+encodeURIComponent("Olá! Tenho interesse na camisa: "+x.nome)+'">Consultar no WhatsApp</a>');
+  h+='<article class="item'+(vend?" sold":"")+'" data-id="'+x.id+'">'+(vend?'<div class="tag">Em breve</div>':"")+
+   '<div class="pic"><img src="fotos/'+esc(x.foto)+'" alt="'+esc(x.nome)+'" loading="lazy"></div><div class="body"><h2 class="name">'+esc(x.nome)+'</h2>'+
+   (x.tipo?'<p class="meta">'+esc(x.tipo)+"</p>":"")+(x.preco?'<p class="price">'+x.preco+"</p>":"")+'<div class="sizes">'+sz+"</div>"+acao+"</div></article>";
+ });
+ $("grid").innerHTML=h||'<p class="empty">Nenhuma camisa encontrada.</p>';
+}
+$("grid").onclick=function(e){
+ var b=e.target.closest("button");if(!b)return;var card=b.closest(".item");if(!card)return;
+ if(b.classList.contains("sz")){card.querySelectorAll(".sz").forEach(function(s){s.classList.remove("on")});b.classList.add("on");return}
+ if(b.classList.contains("add")){
+  var s=card.querySelector(".sz.on");if(!s){toast("Escolha o tamanho primeiro");card.querySelector(".sizes").classList.add("shake");setTimeout(function(){card.querySelector(".sizes").classList.remove("shake")},500);return}
+  add(CAMISAS[+card.getAttribute("data-id")],s.getAttribute("data-s"));
+ }
+};
+$("q").oninput=function(e){busca=e.target.value.toLowerCase();render()};
+
+/* ---------- carrinho ---------- */
+function salva(){try{localStorage.setItem("ri_cart",JSON.stringify(cart))}catch(e){}}
+function sub(){return cart.reduce(function(t,c){return t+c.p*c.q},0)}
+function qtd(){return cart.reduce(function(t,c){return t+c.q},0)}
+function entrega(){return document.querySelector('input[name="ent"]:checked').value==="entrega"}
+function frete(){return entrega()?CFG.frete:0}
+function add(x,s){
+ var k=x.id+"|"+s,it=cart.filter(function(c){return c.k===k})[0];
+ if(it){if(it.q<10)it.q++}else cart.push({k:k,nome:x.nome,s:s,p:x.pnum,q:1});
+ salva();barra();toast("Adicionada ao carrinho");
+}
+function barra(){
+ var b=$("cb");b.hidden=!cart.length;
+ b.innerHTML="<span>Ver carrinho ("+qtd()+")</span><span>"+brl(sub())+"</span>";
+}
+function lista(){
+ var h="";
+ if(!cart.length){$("itens").innerHTML='<p class="mut">Seu carrinho está vazio.</p>';$("fm").hidden=true;return}
+ $("fm").hidden=false;
+ cart.forEach(function(c){
+  h+='<div class="ln"><div class="li"><b>'+esc(c.nome)+'</b><span>Tamanho '+esc(c.s)+" | "+brl(c.p)+'</span></div><div class="qt"><button type="button" data-k="'+esc(c.k)+'" data-a="m" aria-label="Diminuir">-</button><b>'+c.q+'</b><button type="button" data-k="'+esc(c.k)+'" data-a="p" aria-label="Aumentar">+</button></div><button type="button" class="rm" data-k="'+esc(c.k)+'" data-a="x" aria-label="Remover">&times;</button></div>';
+ });
+ $("itens").innerHTML=h;
+}
+function resumo(){
+ var s=sub(),f=frete();
+ $("res").innerHTML='<div><span>Subtotal</span><span>'+brl(s)+'</span></div><div><span>'+(entrega()?"Entrega":"Retirada (combinar)")+'</span><span>'+(entrega()?brl(f):"Grátis")+'</span></div><div class="tot"><span>Total</span><span>'+brl(s+f)+"</span></div>";
+}
+function refresca(){lista();resumo();barra();$("ad").hidden=!entrega();$("pixbox").hidden=true}
+$("itens").onclick=function(e){
+ var b=e.target.closest("button");if(!b)return;var k=b.getAttribute("data-k"),a=b.getAttribute("data-a");
+ var i=cart.map(function(c){return c.k}).indexOf(k);if(i<0)return;
+ if(a==="p"&&cart[i].q<10)cart[i].q++;
+ if(a==="m")cart[i].q--;
+ if(a==="x"||cart[i].q<1)cart.splice(i,1);
+ salva();refresca();
+};
+$("cb").onclick=function(){$("md").hidden=false;document.body.classList.add("lock");refresca()};
+function fecha(){$("md").hidden=true;document.body.classList.remove("lock")}
+$("fx").onclick=fecha;
+$("md").onclick=function(e){if(e.target===$("md"))fecha()};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")fecha()});
+document.querySelectorAll('input[name="ent"]').forEach(function(r){r.onchange=refresca});
+$("cep").oninput=async function(){
+ var v=this.value.replace(/\D/g,"").slice(0,8);this.value=v.length>5?v.slice(0,5)+"-"+v.slice(5):v;
+ if(v.length===8){try{var r=await fetch("https://viacep.com.br/ws/"+v+"/json/");var d=await r.json();if(!d.erro){if(!$("rua").value)$("rua").value=d.logradouro||"";if(!$("bai").value)$("bai").value=d.bairro||"";$("cid").value=d.localidade||$("cid").value;$("uf").value=d.uf||$("uf").value}}catch(e){}}
+};
+
+/* ---------- Pix ---------- */
+function tlv(i,v){return i+("0"+v.length).slice(-2)+v}
+function crc(s){var c=0xFFFF;for(var i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(var j=0;j<8;j++)c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return("000"+c.toString(16).toUpperCase()).slice(-4)}
+function ascii(t,n){return t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().slice(0,n)}
+function pixCode(v){
+ var p=tlv("00","01")+tlv("01","11")+tlv("26",tlv("00","br.gov.bcb.pix")+tlv("01",CFG.pix))+tlv("52","0000")+tlv("53","986")+tlv("54",v.toFixed(2))+tlv("58","BR")+tlv("59",ascii(CFG.nome,25))+tlv("60",ascii(CFG.cidade,15))+tlv("62",tlv("05","***"))+"6304";
+ return p+crc(p);
+}
+function dados(){return{n:$("n").value.trim(),w:$("w").value.trim(),cep:$("cep").value.trim(),rua:$("rua").value.trim(),num:$("num").value.trim(),comp:$("comp").value.trim(),bai:$("bai").value.trim(),cid:$("cid").value.trim(),uf:$("uf").value.trim().toUpperCase()}}
+function valida(){
+ var d=dados();
+ if(d.n.length<3)return"Informe seu nome completo.";
+ if(d.w.replace(/\D/g,"").length<10)return"Informe seu WhatsApp com DDD.";
+ if(entrega()){
+  if(d.cep.replace(/\D/g,"").length!==8)return"Informe o CEP com 8 números.";
+  if(!d.rua||!d.num||!d.bai||!d.cid||d.uf.length!==2)return"Preencha rua, número, bairro, cidade e UF.";
+ }
+ return"";
+}
+function mensagem(total){
+ var d=dados(),m="Olá! Fiz um pedido no catálogo da Raphael Imports e já paguei o Pix.\n\n*Pedido "+pedido+"*\n";
+ cart.forEach(function(c){m+="• "+c.q+"x "+c.nome+" (tam. "+c.s+") - "+brl(c.p*c.q)+"\n"});
+ m+="\nSubtotal: "+brl(sub())+"\n"+(entrega()?"Entrega: "+brl(CFG.frete):"Retirada: grátis (combinar)")+"\n*Total: "+brl(total)+"*\n\nNome: "+d.n+"\nWhatsApp: "+d.w+"\n";
+ m+=entrega()?"Endereço: "+d.rua+", "+d.num+(d.comp?" - "+d.comp:"")+", "+d.bai+", "+d.cid+"/"+d.uf+", CEP "+d.cep+"\n":"Vou combinar a retirada com vocês.\n";
+ return m+"\nSegue o comprovante a seguir.";
+}
+$("fm").onsubmit=function(e){
+ e.preventDefault();var er=valida();$("err").textContent=er;if(er)return;
+ var total=sub()+frete(),code=pixCode(total);
+ pedido="RI"+Date.now().toString(36).slice(-5).toUpperCase();
+ $("pv").textContent=brl(total);$("pc").value=code;$("qr").innerHTML="";
+ if(window.QRCode){new QRCode($("qr"),{text:code,width:200,height:200,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M})}
+ $("pixbox").hidden=false;$("pixbox").scrollIntoView({behavior:"smooth",block:"start"});
+ $("ez").onclick=function(){window.open("https://wa.me/"+CFG.zap+"?text="+encodeURIComponent(mensagem(total)),"_blank","noopener")};
+};
+$("cpx").onclick=function(){copia($("pc").value,"Código Pix copiado!")};
+
+/* ---------- topo: copiar link e PDF ---------- */
+$("cp").onclick=function(){copia(location.href.split("#")[0],"Link copiado!")};
+function carregaImg(src){return new Promise(function(res){var i=new Image();i.onload=function(){res(i)};i.onerror=function(){res(null)};i.src=src})}
+async function gerarPDF(){
+ var J=window.jspdf.jsPDF,doc=new J({unit:"mm",format:"a4"});
+ var W=210,H=297,M=8,gap=4,cols=3,cw=(W-2*M-gap*(cols-1))/cols,ih=50,chh=72,rg=5;
+ var lista=CAMISAS.slice().sort(ordena);
+ var logo=document.querySelector("img.logo");
+ function faixa(primeira){
+  doc.setFillColor(10,10,10);doc.rect(0,0,W,primeira?44:14,"F");
+  doc.setFillColor(224,168,46);doc.rect(0,primeira?44:14,W,1.2,"F");
+  if(primeira){
+   if(logo&&logo.naturalWidth){var lh=34,lw=lh*logo.naturalWidth/logo.naturalHeight;doc.addImage(logo,"JPEG",(W-lw)/2,2,lw,lh)}
+   doc.setFont("helvetica","normal");doc.setFontSize(8);doc.setTextColor(224,168,46);
+   doc.setFont("helvetica","bold");doc.setFontSize(7.5);doc.text("CAMISAS TAILANDESAS 1.1   |   FAÇA SUA ENCOMENDA   |   PRAZO DE 25 A 30 DIAS",W/2,41.5,{align:"center"});
+  }else{
+   doc.setFont("helvetica","bold");doc.setFontSize(12);doc.setTextColor(224,168,46);
+   doc.text("RAPHAEL IMPORTS",W/2,9.2,{align:"center"});
+  }
+ }
+ function rodape(n){
+  doc.setFont("helvetica","normal");doc.setFontSize(8);doc.setTextColor(110,110,110);
+  doc.text("Pedidos pelo WhatsApp: (21) 99776-2912   |   Catálogo atualizado em "+new Date().toLocaleDateString("pt-BR"),M,H-6);
+  doc.text("Página "+n,W-M,H-6,{align:"right"});
+ }
+ var pag=1,y0=52,x,y,i=0;
+ faixa(true);rodape(pag);y=y0;
+ while(i<lista.length){
+  for(var c=0;c<cols&&i<lista.length;c++,i++){
+   var it=lista[i];x=M+c*(cw+gap);
+   if(y+chh>H-12){doc.addPage();pag++;faixa(false);rodape(pag);y=22;}
+   doc.setDrawColor(216,216,216);doc.setFillColor(255,255,255);doc.roundedRect(x,y,cw,chh,2,2,"FD");
+   doc.setFillColor(43,43,43);doc.rect(x+0.3,y+0.3,cw-0.6,ih,"F");
+   var im=await carregaImg("fotos/"+it.foto);
+   if(im){var sc=Math.min((cw-0.6)/im.naturalWidth,ih/im.naturalHeight),iw=im.naturalWidth*sc,ihh=im.naturalHeight*sc;
+    doc.addImage(im,"JPEG",x+(cw-iw)/2,y+0.3+(ih-ihh)/2,iw,ihh)}
+   var vend=it.tamanhos.length===0;
+   if(vend){doc.setFillColor(224,168,46);doc.rect(x+2,y+3,22,6,"F");doc.setFont("helvetica","bold");doc.setFontSize(8);doc.setTextColor(17,17,17);doc.text("EM BREVE",x+13,y+7.2,{align:"center"})}
+   var ty=y+ih+5;
+   doc.setFont("helvetica","bold");doc.setFontSize(8.5);doc.setTextColor(22,34,27);
+   var ln=doc.splitTextToSize(it.nome,cw-4).slice(0,2);doc.text(ln,x+2,ty);ty+=ln.length*3.6+1.2;
+   doc.setFontSize(10);doc.setTextColor(150,100,10);doc.text(it.preco||(vend?"":"Consulte o valor"),x+2,ty);ty+=4.4;
+   doc.setFont("helvetica","normal");doc.setFontSize(8);doc.setTextColor(22,34,27);
+   doc.text(vend?"Em breve":"Tamanhos: "+it.tamanhos.join(", "),x+2,ty);ty+=3.6;
+   if(it.tipo==="Infantil"){doc.setFontSize(6.3);doc.setTextColor(90,90,90);doc.text("22 (6-7)  24 (8-9)  26 (10-11)  28 (12-13) anos",x+2,ty)}
+  }
+  y+=chh+rg;
+ }
+ return doc.output("blob");
+}
+$("pdf").onclick=async function(){
+ var b=this;b.disabled=true;toast("Gerando o PDF...");
+ try{
+  if(!window.jspdf){toast("Não foi possível carregar o gerador de PDF.");return}
+  var blob=await gerarPDF(),u=URL.createObjectURL(blob),l=document.createElement("a");
+  l.href=u;l.download="catalogo-raphael-imports.pdf";document.body.appendChild(l);l.click();l.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);toast("PDF pronto!");
+ }catch(e){toast("Não foi possível baixar o PDF agora.")}
+ finally{b.disabled=false}
+};
+
+/* ---------- início ---------- */
+try{cart=JSON.parse(localStorage.getItem("ri_cart")||"[]")}catch(e){cart=[]}
+barra();carregar();
+</script>
+</body>
+</html>
