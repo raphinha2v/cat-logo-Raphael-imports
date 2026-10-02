@@ -1,1 +1,0 @@
-# cat-logo-Raphael-imports
